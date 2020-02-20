@@ -23,8 +23,40 @@ def inputDirectory(pathDirectory):
                     trie.insert(word)
       return pathDirectory
 
-if __name__ == '__main__':
+def findWords(string):
+    array,validInput,logicalInput = parseInput(string)
+    if validInput:
+        if logicalInput:
+            print('Logicka pretraga')
+        else:
+            print('Obicna pretraga')
+    else:
+        print('Niste uneli ispravan unos')
 
+def parseInput(string):
+    array = string.split(' ')
+    validInput = False
+    logicalInput = False
+    if len(array) == 3:
+        if array[1].upper() == 'AND' or array[1].upper() == 'OR' or array[1].upper() == 'NOT':
+           validInput = True
+           logicalInput = True
+        else:
+           validInput = True
+    if len(array) == 3 and ((array[0].upper() == 'AND' or array[0].upper() == 'OR' or array[0].upper() == 'NOT') or (array[2].upper() == 'AND' or array[2].upper() == 'OR' or array[2].upper() == 'NOT')):
+        validInput = False
+    if len(array) !=3:
+        validInput = True
+        for i in range(len(array)):
+            if array[i].upper() == 'AND' or array[i].upper() == 'OR' or array[i].upper() == 'NOT':
+                validInput = False
+                break
+
+    return array,validInput,logicalInput
+
+
+
+if __name__ == '__main__':
 
   running = True
   pathDirectory = ''
@@ -47,8 +79,9 @@ if __name__ == '__main__':
         if pathDirectory == '':
             print('Niste izabrali putanju direktorijuma [procitajte napomenu]')
         else:
-            print('\t\tUputstvo koriscenja pretrage\n','* Moguce je pretraziti jednu/vise reci\n','* Moguca je logicka pretraga u formatu [rec AND|OR|NOT rec]')
+            print('\t\tUputstvo koriscenja pretrage\n','* Moguce je pretraziti jednu/vise reci\n','* Moguca je logicka pretraga u formatu [rec AND|OR|NOT rec]\n','* Reci and|or|not smatraju se logickim operatorima i nije ih moguce pretraziti')
             string = input('Unesite jednu ili vise reci:')
+            findWords(string)
             print()
       else:
           if unos.upper() == 'X':
