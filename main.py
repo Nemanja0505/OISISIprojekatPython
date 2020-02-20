@@ -14,22 +14,40 @@ def inputDirectory(pathDirectory):
         pathDirectory = ''
         return pathDirectory
     else:
+      trie.__init__()
       for root, dirs, files in os.walk(pathDirectory):
          for file in files:
             if (file.endswith('html') or file.endswith('htm')):
                 links, words = parser.parse(os.path.join(root, file))
                 graph.insert(os.path.join(root, file), links)
                 for word in words:
-                    trie.insert(word)
+                    trie.insert(word,os.path.join(root,file))
       return pathDirectory
 
 def findWords(string):
     array,validInput,logicalInput = parseInput(string)
+    htmlPages = {}
     if validInput:
         if logicalInput:
             print('Logicka pretraga')
+
         else:
             print('Obicna pretraga')
+
+            for i in range(len(array)):
+                existingWord, htmlPagesOfOneWord = trie.search(array[i])
+                if existingWord == 'True':
+                    for key in htmlPagesOfOneWord:
+                        if (key not in htmlPages):
+                            htmlPages[key] = []
+                            htmlPages[key].append(htmlPagesOfOneWord[key])
+                        else:
+                            htmlPages[key].append(htmlPagesOfOneWord[key])
+
+            i = 1;
+            for key in htmlPages:
+                print(i,'',key,'--->',htmlPages[key])
+                i += 1
     else:
         print('Niste uneli ispravan unos')
 
