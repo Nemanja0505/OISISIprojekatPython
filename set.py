@@ -10,3 +10,4 @@ class Set:
             self.result = first.union(second)
         else:
             self.result = first.difference(second)
+
