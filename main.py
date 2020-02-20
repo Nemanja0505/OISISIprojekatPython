@@ -1,10 +1,12 @@
 import os
 from fileParser import *
 from trie import *
+from graph import *
 import time
 
 parser = Parser()
 trie = Trie()
+graph = Graph()
 
 def inputDirectory(pathDirectory):
     if not os.path.isdir(pathDirectory):
@@ -16,6 +18,7 @@ def inputDirectory(pathDirectory):
          for file in files:
             if (file.endswith('html') or file.endswith('htm')):
                 links, words = parser.parse(os.path.join(root, file))
+                graph.insert(os.path.join(root, file), links)
                 for word in words:
                     trie.insert(word)
       return pathDirectory
