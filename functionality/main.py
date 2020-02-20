@@ -1,12 +1,17 @@
 import os
-from fileParser import *
-from trie import *
-from graph import *
+from functionality.fileParser import *
+from dataStructures.trie import *
+from dataStructures.graph import *
+from dataStructures.set import *
+from functionality.inputParser import *
+from functionality.resultSetOfPages import *
 import time
+
 
 parser = Parser()
 trie = Trie()
 graph = Graph()
+set = Set()
 
 def inputDirectory(pathDirectory):
     if not os.path.isdir(pathDirectory):
@@ -26,23 +31,18 @@ def inputDirectory(pathDirectory):
 
 def findWords(string):
     array,validInput,logicalInput = parseInput(string)
-    htmlPages = {}
     if validInput:
         if logicalInput:
             print('Logicka pretraga')
+            htmlPages = logical(array,trie,set)
 
+            i = 1
+            for key in htmlPages:
+                print(i,'',key,'--->',htmlPages[key])
+                i += 1
         else:
             print('Obicna pretraga')
-
-            for i in range(len(array)):
-                existingWord, htmlPagesOfOneWord = trie.search(array[i])
-                if existingWord == 'True':
-                    for key in htmlPagesOfOneWord:
-                        if (key not in htmlPages):
-                            htmlPages[key] = []
-                            htmlPages[key].append(htmlPagesOfOneWord[key])
-                        else:
-                            htmlPages[key].append(htmlPagesOfOneWord[key])
+            htmlPages = regular(array,trie)
 
             i = 1;
             for key in htmlPages:
@@ -50,27 +50,6 @@ def findWords(string):
                 i += 1
     else:
         print('Niste uneli ispravan unos')
-
-def parseInput(string):
-    array = string.split(' ')
-    validInput = False
-    logicalInput = False
-    if len(array) == 3:
-        if array[1].upper() == 'AND' or array[1].upper() == 'OR' or array[1].upper() == 'NOT':
-           validInput = True
-           logicalInput = True
-        else:
-           validInput = True
-    if len(array) == 3 and ((array[0].upper() == 'AND' or array[0].upper() == 'OR' or array[0].upper() == 'NOT') or (array[2].upper() == 'AND' or array[2].upper() == 'OR' or array[2].upper() == 'NOT')):
-        validInput = False
-    if len(array) !=3:
-        validInput = True
-        for i in range(len(array)):
-            if array[i].upper() == 'AND' or array[i].upper() == 'OR' or array[i].upper() == 'NOT':
-                validInput = False
-                break
-
-    return array,validInput,logicalInput
 
 
 
