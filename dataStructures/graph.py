@@ -38,6 +38,31 @@ class Graph:
         for i in range (0 , len(niz)):
             self.addEdge(a,niz[i])
 
+  # sumiranje svih stranica koje pokazuju na datu stanicu i ka kojima ona pokazuje
+
+    def sumOfConnectingLinks(self, link):
+        sum = 0
+        list = []
+        for m in self.vertices:
+            for i in self.getVertex(m).connectedTo:
+                if i == self.vertices[link]:
+                    sum = sum + 1
+                    list.append(m)
+                    # mozda treba break pogledati posle za optimizaciju
+        return sum, len(self.vertices[link].connectedTo), list
+
+
+    def sumOfWords(self, dictionary, list):
+        sum = 0  # broj svih reci u svim mapama
+        for i in list:
+            if i in dictionary:
+                sumOfDictionary = 0
+                for m in dictionary[i]:  # prolazimo kroz vrdnosti mape a to je niz od dva broja i saberemo ih,npr [1,3] = 4
+                    sumOfDictionary = sumOfDictionary + m
+                sum = sum + sumOfDictionary
+        return sum
+
+
 class Vertex:
     def __init__(self, num):
         self.id = num

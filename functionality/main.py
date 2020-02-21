@@ -30,11 +30,13 @@ def inputDirectory(pathDirectory):
       return pathDirectory
 
 def findWords(string):
+
     array,validInput,logicalInput = parseInput(string)
     if validInput:
         if logicalInput:
             print('Logicka pretraga')
-            htmlPages = logical(array,trie,set)
+            htmlPages= logical(array,trie,set)
+
 
             i = 1
             for key in htmlPages:
@@ -42,7 +44,11 @@ def findWords(string):
                 i += 1
         else:
             print('Obicna pretraga')
-            htmlPages = regular(array,trie)
+            htmlPages,arrayOfDictionary = regular(array,trie)
+            htmlPages = rankDictionary(htmlPages, arrayOfDictionary, graph)
+
+
+
 
             i = 1;
             for key in htmlPages:
@@ -50,7 +56,6 @@ def findWords(string):
                 i += 1
     else:
         print('Niste uneli ispravan unos')
-
 
 
 if __name__ == '__main__':

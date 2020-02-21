@@ -1,3 +1,4 @@
+from functionality.rankingPages import *
 
 def logical(array, trie,setOfPages):
     first = set()
@@ -29,8 +30,10 @@ def logical(array, trie,setOfPages):
 
 def regular(array,trie):
     htmlPages = {}
+    arrayOfDictionary = []
     for i in range(len(array)):
         existingWord, htmlPagesOfOneWord = trie.search(array[i])
+        arrayOfDictionary.append(ranking(htmlPagesOfOneWord,0.2))
         if existingWord == 'True':
             for key in htmlPagesOfOneWord:
                 if (key not in htmlPages):
@@ -39,4 +42,4 @@ def regular(array,trie):
                 else:
                     htmlPages[key].append(htmlPagesOfOneWord[key])
 
-    return htmlPages
+    return htmlPages,arrayOfDictionary
