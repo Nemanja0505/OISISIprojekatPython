@@ -1,20 +1,96 @@
 def showSortPages(htmlPages):
 
     htmlPages = sortHtmlPages(htmlPages)
-    print('SORTIRANE HTML STRANICE NA OSNOVU RANGA')
-    for key in htmlPages:
-        print('RANG:',htmlPages[key],'-->',key)
+    start = 0
+    step = 10
 
 
-def sortHtmlPages(hasMap):
-    lista = list(hasMap.items())
+    sortList = list(htmlPages)
 
-    hasMapNova = {}
-    n = len(lista)
-    merge_sort(lista)
-    for i in range(len(lista)):
-        hasMapNova[lista[i][0]] = lista[i][1]
-    return hasMapNova
+    running2 = True
+    if len(sortList) >= step:
+        defaultStep = 15
+    else:
+        step = len(sortList)
+        defaultStep = step
+
+    showStepByStep(sortList, start, step,htmlPages)
+    print('\t'*10,'SLEDECA--->')
+
+    while running2:
+        print('1.Prikazi sledecih 10 : ')
+        print('2.prikazi predhodnih 10 : ')
+        print('3.promeni broj prikaza stanica : ')
+        print('X.izlazak iz pretrage ')
+
+        option = input()
+
+        if option == '1':
+            if start + step == len(sortList):
+                showStepByStep(sortList, start, step, htmlPages)
+                print('\t'*10,'<---PRETHODNA')
+            else:
+                start = start + step
+                if start + step == len(sortList):
+                    showStepByStep(sortList, start, step,htmlPages)
+                    print('\t'*10,'<---PRETHODNA')
+                if len(sortList) < start + step:
+                    step = len(sortList) - start
+                    print(start, step)
+                    showStepByStep(sortList, start, step,htmlPages)
+                    print('\t'*10,'<---PRETHODNA\t|\tSLEDECA--->')
+                if len(sortList) > start + step:
+                    print(start, step)
+                    showStepByStep(sortList, start, step,htmlPages)
+                    print('\t'*10,'<---PRETHODNA\t|\tSLEDECA--->')
+        elif option == '2':
+            if len(sortList) == start + step:
+                step = defaultStep
+                if start > 0:
+                    start = start - step
+                showStepByStep(sortList, start, step,htmlPages)
+                print('\t'*10,'<---PRETHODNA')
+            else:
+                if start == 0:
+                    showStepByStep(sortList, start, step, htmlPages)
+                    print('\t'*10,'SLEDECA--->')
+                if start != 0:
+                    start = start - step
+                    showStepByStep(sortList, start, step,htmlPages)
+                    print('\t'*10,'<---PRETHODNA\t|\tSLEDECA--->')
+        elif option == '3':
+            step = int(input('Unesite zeljeni korak'))
+            start = 0
+            if step > len(sortList):
+                showStepByStep(sortList, 0, len(sortList),htmlPages)
+                step = len(sortList)
+                print('Uneli ste prevelik korak ukupan broj stranica je', len(sortList))
+            else:
+                showStepByStep(sortList, start, step,htmlPages)
+                print('\t'*10,'SLEDECA--->')
+            defaultStep = step
+
+        else:
+            running2 = False
+
+
+def showStepByStep(sortList,start,step,htmlPages):
+        if len(sortList) != 0:
+            for i in range(start,start + step):
+                print(i + 1,'',sortList[i],'-->RANG:',htmlPages[sortList[i]])
+
+
+
+
+def sortHtmlPages(htmlPages):
+    listHtmlPages = list(htmlPages.items())
+
+    sortHtmlPages = {}
+    n = len(listHtmlPages)
+    merge_sort(listHtmlPages)
+    for i in range(len(listHtmlPages)):
+        sortHtmlPages[listHtmlPages[i][0]] = listHtmlPages[i][1]
+    return sortHtmlPages
 
 
 def merge(s1, s2, s):
