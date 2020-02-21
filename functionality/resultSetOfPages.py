@@ -17,12 +17,9 @@ def logical(array, trie,setOfPages):
     setOfPages.operations(first, second, operation)
     for key in setOfPages.result:
         unionHtmlPages[key] = []
-        if key in (htmlPagesOfWord1 and htmlPagesOfWord2):
+        if key in htmlPagesOfWord1:
             unionHtmlPages[key].append(htmlPagesOfWord1[key])
-            unionHtmlPages[key].append(htmlPagesOfWord2[key])
-        elif key in htmlPagesOfWord1:
-            unionHtmlPages[key].append(htmlPagesOfWord1[key])
-        else:
+        if key in htmlPagesOfWord2:
             unionHtmlPages[key].append(htmlPagesOfWord2[key])
 
     return unionHtmlPages
