@@ -11,9 +11,9 @@ def ranking(htmlPages,korak):
         else:
             rankDicitonary[key] = i
 
-   # for key in rankDicitonary:
-    #    print(key, '----->', rankDicitonary[key])
-    #print('------------' * 20)
+    for key in rankDicitonary:
+       print(key, '----->', rankDicitonary[key])
+    print('------------' * 20)
     return rankDicitonary
 
 def rankDictionary(htmlPages,arrayOfDictionary,graph):
@@ -25,10 +25,12 @@ def rankDictionary(htmlPages,arrayOfDictionary,graph):
         for value in htmlPages[key]:
             dictionaryForImprovingRank[key] = dictionaryForImprovingRank[key] + value
 
+    print('ISPIS POBOLJSANOG RANKIRANJA')
     arrayOfDictionary.append(ranking(dictionaryForImprovingRank,0.2))
 
     dictionaryOfLinks = {}
     dictionaryOfWordsInLinks = {}
+    print('ISPISUJE HTML STRANICE,NIZ BROJA RECI,BROJ LINKOVA KOJI POKAZUJU KA NJEWMU,I KA KOJIMA ON POKAZUJE,UKUPAN BROJ RECI NA STRANICAMA KOJE POKAZUJU NA NJEGA')
 
     for key in htmlPages:
         wordsNumber = htmlPages[key]  # broj reci koje smo pretrazili u tom linku
@@ -45,8 +47,9 @@ def rankDictionary(htmlPages,arrayOfDictionary,graph):
                 dictionary1[key] = dictionary1[key] + arrayOfDictionary[i][key]
             else:
                 dictionary1[key] = arrayOfDictionary[i][key]
-
+    print('RANGIRANJE DRUGE KOLONE')
     dictionary2 = ranking(dictionaryOfLinks,0.2)  # rangirana mapa  za Linkove (svakoj se daje + 0.2)
+    print('RANGIRANJE POSLEDNJE KOLONE')
     dictionary3 = ranking(dictionaryOfWordsInLinks,0.1) # rangirana mapa za ReciULinkovima (svakoj se daje +0.1)
 
     rankingDictionary = {}  # recnik sa uracunatim svim kriterijumima rangiranja
@@ -57,3 +60,18 @@ def rankDictionary(htmlPages,arrayOfDictionary,graph):
                 rankingDictionary[key] = dictionary1[key] + dictionary2[key] + dictionary3[key]
 
     return rankingDictionary
+
+def logicalRanking(htmlPages,arrayOfDictionary,array,trie,graph):
+
+    if array[1].upper() == 'OR' or array[1].upper() == 'AND':
+        existingWord1, htmlPages1 = trie.search(array[0])
+        arrayOfDictionary.append(ranking(htmlPages1,0.2))
+        existingWord2, htmlPages2 = trie.search(array[2])
+        arrayOfDictionary.append(ranking(htmlPages2,0.2))
+    else:
+        arrayOfDictionary.append(ranking(htmlPages,0.2))
+
+    htmlPages = rankDictionary(htmlPages,arrayOfDictionary,graph)
+
+    return htmlPages
+

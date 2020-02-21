@@ -38,6 +38,8 @@ def findWords(string):
             htmlPages= logical(array,trie,set)
 
 
+
+
             i = 1
             for key in htmlPages:
                 print(i,'',key,'--->',htmlPages[key])
