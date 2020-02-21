@@ -61,7 +61,9 @@ def rankDictionary(htmlPages,arrayOfDictionary,graph):
 
     return rankingDictionary
 
-def logicalRanking(htmlPages,arrayOfDictionary,array,trie,graph):
+def logicalRanking(htmlPages,array,trie,graph):
+
+    arrayOfDictionary = []
 
     if array[1].upper() == 'OR' or array[1].upper() == 'AND':
         existingWord1, htmlPages1 = trie.search(array[0])

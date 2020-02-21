@@ -5,6 +5,7 @@ from dataStructures.graph import *
 from dataStructures.set import *
 from functionality.inputParser import *
 from functionality.resultSetOfPages import *
+from functionality.sort import  *
 import time
 
 
@@ -36,26 +37,13 @@ def findWords(string):
         if logicalInput:
             print('Logicka pretraga')
             htmlPages= logical(array,trie,set)
-
-
-
-
-            i = 1
-            for key in htmlPages:
-                print(i,'',key,'--->',htmlPages[key])
-                i += 1
+            htmlPages = logicalRanking(htmlPages,array,trie,graph)
+            showSortPages(htmlPages)
         else:
             print('Obicna pretraga')
             htmlPages,arrayOfDictionary = regular(array,trie)
             htmlPages = rankDictionary(htmlPages, arrayOfDictionary, graph)
-
-
-
-
-            i = 1;
-            for key in htmlPages:
-                print(i,'',key,'--->',htmlPages[key])
-                i += 1
+            showSortPages(htmlPages)
     else:
         print('Niste uneli ispravan unos')
 
