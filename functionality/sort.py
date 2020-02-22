@@ -9,7 +9,7 @@ def showSortPages(htmlPages):
 
     running2 = True
     if len(sortList) >= step:
-        defaultStep = 15
+        defaultStep = 10
     else:
         step = len(sortList)
         defaultStep = step
@@ -28,11 +28,13 @@ def showSortPages(htmlPages):
         if option == '1':
             if start + step == len(sortList):
                 showStepByStep(sortList, start, step, htmlPages)
+                print(start,step)
                 print('\t'*10,'<---PRETHODNA')
             else:
                 start = start + step
                 if start + step == len(sortList):
                     showStepByStep(sortList, start, step,htmlPages)
+                    print(start,step)
                     print('\t'*10,'<---PRETHODNA')
                 if len(sortList) < start + step:
                     step = len(sortList) - start
