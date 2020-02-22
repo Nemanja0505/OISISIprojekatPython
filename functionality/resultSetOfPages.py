@@ -1,17 +1,18 @@
 from functionality.rankingPages import *
+from dataStructures.set import *
 
 def logical(array, trie,setOfPages):
-    first = set()
-    second = set()
+    first = Set()
+    second = Set()
     existingWord1, htmlPagesOfWord1 = trie.search(array[0])
     existingWord2, htmlPagesOfWord2 = trie.search(array[2])
     operation = array[1].upper()
     if existingWord1:
         for key in htmlPagesOfWord1:
-            first.add(key)
+            first.add_element(key,htmlPagesOfWord1[key])
     if existingWord2:
         for key in htmlPagesOfWord2:
-            second.add(key)
+            second.add_element(key,htmlPagesOfWord2[key])
 
     unionHtmlPages = {}
     setOfPages.operations(first, second, operation)
