@@ -23,11 +23,13 @@ def inputDirectory(pathDirectory):
       trie.__init__()
       for root, dirs, files in os.walk(pathDirectory):
          for file in files:
-            if (file.endswith('html') or file.endswith('htm')):
-                links, words = parser.parse(os.path.join(root, file))
-                graph.insert(os.path.join(root, file), links)
+            if file.endswith('html') or file.endswith('htm'):
+                delimiter = chr(92)
+                absPath = root + delimiter + file
+                links, words = parser.parse(absPath)
+                graph.insert(absPath, links)
                 for word in words:
-                    trie.insert(word,os.path.join(root,file))
+                    trie.insert(word,absPath)
       return pathDirectory
 
 def findWords(string):
