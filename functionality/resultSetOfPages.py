@@ -26,9 +26,15 @@ def logical(array, trie,setOfPages):
     return unionHtmlPages
 
 
-def regular(array,trie):
+def regular(arrayOfAllWords,trie):
     htmlPages = {}
     arrayOfDictionary = []
+    array = []
+
+    for element in arrayOfAllWords:
+        if element not in array:
+            array.append(element)
+
     for i in range(len(array)):
         existingWord, htmlPagesOfOneWord = trie.search(array[i])
         arrayOfDictionary.append(ranking(htmlPagesOfOneWord,0.2))
