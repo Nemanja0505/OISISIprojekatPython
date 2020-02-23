@@ -17,6 +17,8 @@ def parseInput(string):
             if array[i].upper() == 'AND' or array[i].upper() == 'OR' or array[i].upper() == 'NOT':
                 validInput = False
                 break
+    for i in range(len(array)):
+        array[i] = array[i].lower()
 
     return array,validInput,logicalInput
 

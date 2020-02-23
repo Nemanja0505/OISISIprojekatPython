@@ -29,7 +29,7 @@ def inputDirectory(pathDirectory):
                 links, words = parser.parse(absPath)
                 graph.insert(absPath, links)
                 for word in words:
-                    trie.insert(word,absPath)
+                    trie.insert(word.lower(),absPath)
       return pathDirectory
 
 def findWords(string):
