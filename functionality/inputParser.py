@@ -71,6 +71,10 @@ def parseComplexInput(string):
             word = ''
         else:
             if string[i] in ['&', '|']:
+                if word != '':
+                    arrayOfWords.append(word)
+                    word = ''
+
                 if counter == 1:
                     counter = 0
                     if string[i] == string[i - 1]:
@@ -89,6 +93,9 @@ def parseComplexInput(string):
                     continue
 
             elif string[i] == '!':
+                if word != '':
+                    arrayOfWords.append(word)
+                    word = ''
                 arrayOfWords.append(string[i])
 
             elif string[i] in [')', '(']:
