@@ -26,8 +26,7 @@ def inputDirectory(pathDirectory):
       for root, dirs, files in os.walk(pathDirectory):
          for file in files:
             if file.endswith('html') or file.endswith('htm'):
-                delimiter = chr(92)
-                absPath = root + delimiter + file
+                absPath = os.path.join(root,file)
                 links, words = parser.parse(absPath)
                 graph.insert(absPath, links)
                 for word in words:
