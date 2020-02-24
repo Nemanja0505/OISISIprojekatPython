@@ -4,12 +4,12 @@ def ranking(htmlPages,korak):
     previous = 0
     for key, value in sorted(htmlPages.items(), key=lambda item: item[1]):
 
-        if previous != value:
-            i = korak + i
-            rankDicitonary[key] = i
-            previous = value
-        else:
-            rankDicitonary[key] = i
+        #if previous != value:
+            #i = korak + i
+            rankDicitonary[key] = htmlPages[key]*korak
+            #previous = value
+        #else:
+           # rankDicitonary[key] = 1
 
     for key in rankDicitonary:
        print(key, '----->', rankDicitonary[key])
@@ -18,15 +18,15 @@ def ranking(htmlPages,korak):
 
 def rankDictionary(htmlPages,arrayOfDictionary,graph):
 
-    dictionaryForImprovingRank = {}
+   # dictionaryForImprovingRank = {}
 
-    for key in htmlPages:
-        dictionaryForImprovingRank[key] = 0
-        for value in htmlPages[key]:
-            dictionaryForImprovingRank[key] = dictionaryForImprovingRank[key] + value
+    #for key in htmlPages:
+     #   dictionaryForImprovingRank[key] = 0
+      #  for value in htmlPages[key]:
+       #     dictionaryForImprovingRank[key] = dictionaryForImprovingRank[key] + value
 
-    print('ISPIS POBOLJSANOG RANKIRANJA')
-    arrayOfDictionary.append(ranking(dictionaryForImprovingRank,0.2))
+   # print('ISPIS POBOLJSANOG RANKIRANJA')
+    #arrayOfDictionary.append(ranking(dictionaryForImprovingRank,0.2))
 
     dictionaryOfLinks = {}
     dictionaryOfWordsInLinks = {}
