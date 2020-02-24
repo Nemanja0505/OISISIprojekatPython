@@ -23,6 +23,8 @@ def inputDirectory(pathDirectory):
         return pathDirectory
     else:
       trie.__init__()
+      if not os.path.isabs(pathDirectory):
+        pathDirectory = os.path.abspath(pathDirectory)
       for root, dirs, files in os.walk(pathDirectory):
          for file in files:
             if file.endswith('html') or file.endswith('htm'):
