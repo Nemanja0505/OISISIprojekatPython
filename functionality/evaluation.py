@@ -1,60 +1,57 @@
-
-def evaluateExpressionTree(root, tree,allFiles):
-
+def evaluateExpressionTree(root, tree, allFiles):
     if root is None:
         return None
 
-    # leaf node
     if root.left is None and root.right is None:
-        existingWord,htmlPagesOfOneWord = tree.search(root.value)
+        existingWord, htmlPagesOfOneWord = tree.search(root.value)
         if existingWord == 'True':
             return htmlPagesOfOneWord
         else:
             return {}
 
-    left_leaf = evaluateExpressionTree(root.left,tree,allFiles)
-    right_leaf = evaluateExpressionTree(root.right,tree,allFiles)
+    left_leaf = evaluateExpressionTree(root.left, tree, allFiles)
+    right_leaf = evaluateExpressionTree(root.right, tree, allFiles)
 
     if root.value == '&&':
-        resulSet = {}
+        resultSet = {}
         for key in left_leaf:
             if key in right_leaf:
-                if isinstance(right_leaf[key],list) and isinstance(left_leaf[key],list):
-                    resulSet[key] = right_leaf[key][0] + left_leaf[key][0]
-                elif isinstance(right_leaf[key],list):
-                    resulSet[key] = right_leaf[key][0] + left_leaf[key]
-                elif isinstance(left_leaf[key],list):
-                    resulSet[key] = right_leaf[key] + left_leaf[key][0]
+                if isinstance(right_leaf[key], list) and isinstance(left_leaf[key], list):
+                    resultSet[key] = right_leaf[key][0] + left_leaf[key][0]
+                elif isinstance(right_leaf[key], list):
+                    resultSet[key] = right_leaf[key][0] + left_leaf[key]
+                elif isinstance(left_leaf[key], list):
+                    resultSet[key] = right_leaf[key] + left_leaf[key][0]
                 else:
-                    resulSet[key] = right_leaf[key] + left_leaf[key]
-        return resulSet
+                    resultSet[key] = right_leaf[key] + left_leaf[key]
+        return resultSet
 
     elif root.value == '||':
-        resulSet = {}
+        resultSet = {}
         for key in left_leaf:
             if key in right_leaf:
-                if isinstance(right_leaf[key],list) and isinstance(left_leaf[key],list):
-                    resulSet[key] = right_leaf[key][0] + left_leaf[key][0]
-                elif isinstance(right_leaf[key],list):
-                    resulSet[key] = right_leaf[key][0] + left_leaf[key]
-                elif isinstance(left_leaf[key],list):
-                    resulSet[key] = right_leaf[key] + left_leaf[key][0]
+                if isinstance(right_leaf[key], list) and isinstance(left_leaf[key], list):
+                    resultSet[key] = right_leaf[key][0] + left_leaf[key][0]
+                elif isinstance(right_leaf[key], list):
+                    resultSet[key] = right_leaf[key][0] + left_leaf[key]
+                elif isinstance(left_leaf[key], list):
+                    resultSet[key] = right_leaf[key] + left_leaf[key][0]
                 else:
-                    resulSet[key] = right_leaf[key] + left_leaf[key]
+                    resultSet[key] = right_leaf[key] + left_leaf[key]
             else:
-                if isinstance(left_leaf[key],list):
-                    resulSet[key] = left_leaf[key][0]
+                if isinstance(left_leaf[key], list):
+                    resultSet[key] = left_leaf[key][0]
                 else:
-                    resulSet[key] = left_leaf[key]
+                    resultSet[key] = left_leaf[key]
 
         for key in right_leaf:
-            if key not in resulSet:
-                if isinstance(right_leaf[key],list):
-                    resulSet[key] = right_leaf[key][0]
+            if key not in resultSet:
+                if isinstance(right_leaf[key], list):
+                    resultSet[key] = right_leaf[key][0]
                 else:
-                    resulSet[key] = right_leaf[key]
+                    resultSet[key] = right_leaf[key]
 
-        return resulSet
+        return resultSet
 
     elif root.value == '!':
         resultSet = {}

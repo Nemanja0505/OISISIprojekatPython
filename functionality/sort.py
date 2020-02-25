@@ -15,51 +15,61 @@ def showSortPages(htmlPages):
         defaultStep = step
 
     showStepByStep(sortList, start, step,htmlPages)
-    print('\t'*10,'SLEDECA--->')
+    if(len(sortList) > defaultStep):
+      print('\t'*18,'SLEDECA--->')
+    print('\t' * 18, start + step, '/', len(sortList))
+
 
     while running2:
-        print('1.Prikazi sledecih 10 : ')
-        print('2.prikazi predhodnih 10 : ')
-        print('3.promeni broj prikaza stanica : ')
-        print('X.izlazak iz pretrage ')
+        print('1.Prikazi sledecu stranicu : ')
+        print('2.Prikazi predhodnu stranicu : ')
+        print('3.Promeni broj prikaza stanica : ')
+        print('X.Izlaz iz pretrage: ')
 
         option = input().strip()
 
         if option == '1':
             if start + step == len(sortList):
-                showStepByStep(sortList, start, step, htmlPages)
-                print(start,step)
-                print('\t'*10,'<---PRETHODNA')
+                if len(sortList) > step:
+                    showStepByStep(sortList, start, step, htmlPages)
+                    print('\t'*17,'<---PRETHODNA')
+                    print('\t' * 18, start + step, '/', len(sortList))
+                else:
+                    showStepByStep(sortList, start, step, htmlPages)
+                    print('\t'*18,start + step,'/',len(sortList))
             else:
                 start = start + step
                 if start + step == len(sortList):
                     showStepByStep(sortList, start, step,htmlPages)
-                    print(start,step)
-                    print('\t'*10,'<---PRETHODNA')
+                    print('\t'*17,'<---PRETHODNA')
+                    print('\t' * 18, start + step, '/', len(sortList))
                 if len(sortList) < start + step:
                     step = len(sortList) - start
-                    print(start, step)
                     showStepByStep(sortList, start, step,htmlPages)
-                    print('\t'*10,'<---PRETHODNA\t|\tSLEDECA--->')
+                    print('\t'*14,'<---PRETHODNA\t|\tSLEDECA--->')
+                    print('\t' * 17, start + step, '/', len(sortList))
                 if len(sortList) > start + step:
-                    print(start, step)
                     showStepByStep(sortList, start, step,htmlPages)
-                    print('\t'*10,'<---PRETHODNA\t|\tSLEDECA--->')
+                    print('\t'*14,'<---PRETHODNA\t|\tSLEDECA--->')
+                    print('\t' * 17, start + step, '/', len(sortList))
         elif option == '2':
             if len(sortList) == start + step:
                 step = defaultStep
                 if start > 0:
                     start = start - step
                 showStepByStep(sortList, start, step,htmlPages)
-                print('\t'*10,'<---PRETHODNA')
+                print('\t'*17,'<---PRETHODNA')
+                print('\t' * 18, start + step, '/', len(sortList))
             else:
                 if start == 0:
                     showStepByStep(sortList, start, step, htmlPages)
-                    print('\t'*10,'SLEDECA--->')
+                    print('\t'*18,'SLEDECA--->')
+                    print('\t' * 18, start + step, '/', len(sortList))
                 if start != 0:
                     start = start - step
                     showStepByStep(sortList, start, step,htmlPages)
-                    print('\t'*10,'<---PRETHODNA\t|\tSLEDECA--->')
+                    print('\t'*14,'<---PRETHODNA\t|\tSLEDECA--->')
+                    print('\t' * 17, start + step, '/', len(sortList))
         elif option == '3':
             valid = True
             try:
@@ -71,11 +81,13 @@ def showSortPages(htmlPages):
                 start = 0
                 if step > len(sortList):
                     showStepByStep(sortList, 0, len(sortList),htmlPages)
+                    print('\t' * 17, 0 + len(sortList), '/', len(sortList))
                     step = len(sortList)
-                    print('Uneli ste prevelik korak ukupan broj stranica je', len(sortList))
+                    print('\t'*5,'Uneli ste prevelik korak,ukupan broj stranica je\n', len(sortList))
                 else:
                     showStepByStep(sortList, start, step,htmlPages)
-                    print('\t'*10,'SLEDECA--->')
+                    print('\t'*18,'SLEDECA--->')
+                    print('\t' * 18, start + step, '/', len(sortList))
                 defaultStep = step
 
         else:
@@ -85,8 +97,9 @@ def showSortPages(htmlPages):
 
 def showStepByStep(sortList,start,step,htmlPages):
         if len(sortList) != 0:
+            print('\t'*6,'RB','\t'*10,'HTML STRANICE','%69s' %('RANG'))
             for i in range(start,start + step):
-                print(i + 1,'',sortList[i],'-->RANG:',htmlPages[sortList[i]])
+                print('\t'*5,'%5d' %(i+1),'% -120s' % sortList[i],round(htmlPages[sortList[i]],4))
 
 
 

@@ -1,18 +1,20 @@
 from functionality.rankingPages import *
 from dataStructures.set import *
 
-def logical(array, trie,setOfPages):
+
+def logical(array, trie):
     first = Set()
     second = Set()
+    setOfPages = Set()
     existingWord1, htmlPagesOfWord1 = trie.search(array[0])
     existingWord2, htmlPagesOfWord2 = trie.search(array[2])
     operation = array[1].upper()
     if existingWord1:
         for key in htmlPagesOfWord1:
-            first.add_element(key,htmlPagesOfWord1[key])
+            first.add_element(key, htmlPagesOfWord1[key])
     if existingWord2:
         for key in htmlPagesOfWord2:
-            second.add_element(key,htmlPagesOfWord2[key])
+            second.add_element(key, htmlPagesOfWord2[key])
 
     unionHtmlPages = {}
     setOfPages.operations(first, second, operation)
@@ -26,7 +28,7 @@ def logical(array, trie,setOfPages):
     return unionHtmlPages
 
 
-def regular(arrayOfAllWords,trie):
+def regular(arrayOfAllWords, trie):
     htmlPages = {}
     arrayOfDictionary = []
     array = []
@@ -37,13 +39,13 @@ def regular(arrayOfAllWords,trie):
 
     for i in range(len(array)):
         existingWord, htmlPagesOfOneWord = trie.search(array[i])
-        arrayOfDictionary.append(ranking(htmlPagesOfOneWord,0.2))
+        arrayOfDictionary.append(ranking(htmlPagesOfOneWord, 0.5))
         if existingWord == 'True':
             for key in htmlPagesOfOneWord:
-                if (key not in htmlPages):
+                if key not in htmlPages:
                     htmlPages[key] = []
                     htmlPages[key].append(htmlPagesOfOneWord[key])
                 else:
                     htmlPages[key].append(htmlPagesOfOneWord[key])
 
-    return htmlPages,arrayOfDictionary
+    return htmlPages, arrayOfDictionary

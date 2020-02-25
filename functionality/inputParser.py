@@ -1,15 +1,13 @@
-
 def parseInput(string):
-
     character = False
 
-    string = string.replace('\t',' ')
+    string = string.replace('\t', ' ')
     for ch in string:
         if ch == ' ':
             continue
         else:
-           character = True
-           break
+            character = True
+            break
 
     array = string.split(' ')
 
@@ -20,37 +18,34 @@ def parseInput(string):
             resultArray.append(element)
 
     if not character:
-        return [],False,False
-
+        return [], False, False
 
     if len(resultArray) == 0:
-        return [],False,False
-
-    print(resultArray)
+        return [], False, False
 
     validInput = False
     logicalInput = False
     if len(resultArray) == 3:
         if resultArray[1].upper() == 'AND' or resultArray[1].upper() == 'OR' or resultArray[1].upper() == 'NOT':
-           validInput = True
-           logicalInput = True
+            validInput = True
+            logicalInput = True
         else:
-           validInput = True
-    if len(resultArray) == 3 and ((resultArray[0].upper() == 'AND' or resultArray[0].upper() == 'OR' or resultArray[0].upper() == 'NOT') or (resultArray[2].upper() == 'AND' or resultArray[2].upper() == 'OR' or resultArray[2].upper() == 'NOT')):
+            validInput = True
+    if len(resultArray) == 3 and (
+            (resultArray[0].upper() == 'AND' or resultArray[0].upper() == 'OR' or resultArray[0].upper() == 'NOT') or (
+            resultArray[2].upper() == 'AND' or resultArray[2].upper() == 'OR' or resultArray[2].upper() == 'NOT')):
         validInput = False
-    if len(resultArray) !=3:
+    if len(resultArray) != 3:
         validInput = True
         for i in range(len(resultArray)):
             if resultArray[i].upper() == 'AND' or resultArray[i].upper() == 'OR' or resultArray[i].upper() == 'NOT':
                 validInput = False
                 break
 
-
-
     for i in range(len(resultArray)):
         resultArray[i] = resultArray[i].lower()
 
-    return resultArray,validInput,logicalInput
+    return resultArray, validInput, logicalInput
 
 
 def parseComplexInput(string):
@@ -58,7 +53,7 @@ def parseComplexInput(string):
 
     if len(string) == 0:
         print('GRESKA\n*Niste uneli nijednu rec')
-        return [],False
+        return [], False
 
     arrayOfWords = []
     word = ''
@@ -123,47 +118,48 @@ def parseComplexInput(string):
             counter2 += 1
 
     if counter2 % 2 != 0:
-        print('Greska!\n*Proverite zagrade(broj zagrada mora biti paran)')
+        print('GRESKA! *Proverite zagrade(broj zagrada mora biti paran)')
         valid = False
 
     if leftParentheses != rightParentheses:
-        print('Greska!\n*Proverite zagrade(broj otvorenih i zatvorenih zagrada mora biti jednak)')
+        print('GRESKA! *Proverite zagrade(broj otvorenih i zatvorenih zagrada mora biti jednak)')
         valid = False
 
     if arrayOfWords[0] in ['&&', '||']:
-        print('GRESKA!\n*Upit ne moze da pocne operatorom')
+        print('GRESKA! *Upit ne moze da pocne operatorom')
         valid = False
 
     if arrayOfWords[len(arrayOfWords) - 1] in ['&&', '||', '!']:
-        print('GRESKA!\n*Upit ne moze da se zavrsi operatorom')
+        print('GRESKA! *Upit ne moze da se zavrsi operatorom')
         valid = False
 
     if arrayOfWords[0] in [')']:
-        print('GRESKA!\n*Proverite zagrade(upit ne moze da pocne zatvorenom zagradom)')
+        print('GRESKA! *Proverite zagrade(upit ne moze da pocne zatvorenom zagradom)')
         valid = False
 
     if arrayOfWords[len(arrayOfWords) - 1] in ['(']:
-        print('GRESKA!\n*Proverite zagrade(upit ne moze da se zavrsi sa otvorenom zagradom)')
+        print('GRESKA! *Proverite zagrade(upit ne moze da se zavrsi sa otvorenom zagradom)')
         valid = False
 
     for i in range(len(arrayOfWords) - 1):
         resultArray.append(arrayOfWords[i])
         if arrayOfWords[i] in ['&&', '||', '!']:
             if arrayOfWords[i + 1] in ['&&', '||', ')']:
-                print('GRESKA!\n*Nije moguce uneti dva operatora jedan do drugog(osim komplementa)\n*Posle operatora ne moze da ide zatvorena zagrada')
+                print(
+                    'GRESKA! *Nije moguce uneti dva operatora jedan do drugog(osim komplementa)\n*Posle operatora ne '
+                    'moze da ide zatvorena zagrada')
                 valid = False
         elif arrayOfWords[i] not in ['(', ')']:
             if arrayOfWords[i + 1] not in [')', '&&', '||']:
                 resultArray.append('||')
-        elif arrayOfWords[i] == ')' and (arrayOfWords[i + 1] not in ['&&', '||',')']):
+        elif arrayOfWords[i] == ')' and (arrayOfWords[i + 1] not in ['&&', '||', ')']):
             resultArray.append('||')
         elif arrayOfWords[i] == '(' and (arrayOfWords[i + 1] in ['&&', '||']):
-            print('GRESKA!\n*Posle otvorene zagrade nije moguce uneti operatore && i ||')
+            print('GRESKA! *Posle otvorene zagrade nije moguce uneti operatore && i ||')
             valid = False
 
     resultArray.append(arrayOfWords[len(arrayOfWords) - 1])
     print('Niz koji se prosledjuje')
     print(resultArray)
 
-    return  resultArray,valid
-
+    return resultArray, valid
