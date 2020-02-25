@@ -45,7 +45,8 @@ def constructTree(postfix):
                 tree.left = t2
 
                 stack.append(tree)
-
-    tree = stack.pop()
-
+    if stack != []:
+        tree = stack.pop()
+    else:
+        return None
     return tree

@@ -40,7 +40,10 @@ def InfixToPostfix(array):
             while stack != [] and stack[len(stack) - 1] != '(':
                 postfixArray.append(stack[len(stack) - 1])
                 stack.pop()
-            stack.pop()
+            if stack != []:
+                stack.pop()
+            else:
+                return []
         else:
             postfixArray.append(array[i])
 

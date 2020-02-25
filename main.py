@@ -99,7 +99,7 @@ if __name__ == '__main__':
             if pathDirectory == '':
                 print('\nNiste izabrali putanju direktorijuma [procitajte napomenu]\n')
             else:
-                print(' ' * 40, 'UPUTSVO KORISCENJA NAPREDNE PRETRAGE\n',' '*30,'*Moguce je koriscenje operatora [&&,||,!]\n',' '*30,'*Napredna pretraga podrzava slozenije upite\n',' '*30,'*Primer: !(python java || program) && clojure\n')
+                print(' ' * 40, 'UPUTSVO KORISCENJA NAPREDNE PRETRAGE\n',' '*30,'*Moguce je koriscenje operatora [&&,||,!]\n',' '*30,'*Napredna pretraga podrzava slozenije upite\n',' '*30,'*Primer: (dictionary || list || set) && !tree\n')
                 string = input('Unesite logicki izraz koji zelite da pretrazite : ')
                 arrayOfWords,valid = parseComplexInput(string)
                 if not valid:
@@ -109,12 +109,16 @@ if __name__ == '__main__':
                     t = constructTree(postfixArray)
                     htmlPages = evaluateExpressionTree(t, trie, allFiles)
 
-                    if len(htmlPages) != 0:
+
+                    if htmlPages is not None:
+                      if len(htmlPages) != 0:
                         htmlPages = complexRanking(htmlPages,graph)
                         showSortPages(htmlPages)
-                    else:
-                     print('Skup trazenih reci nije pronadjen')
 
+                      else:
+                        print('Skup trazenih reci nije pronadjen')
+                    else:
+                        print('Neispravan unos upita')
       else:
           if unos.upper() == 'X':
             running = False
