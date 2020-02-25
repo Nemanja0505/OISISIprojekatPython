@@ -7,8 +7,7 @@ class Set:
         if key not in self.result:
             self.result[key] = array
 
-
-    def intersection(self,first,second):
+    def intersection(self, first, second):
         resulSet = {}
         for key in first.result:
             if key in second.result:
@@ -46,13 +45,10 @@ class Set:
                 resultSet[key] = array
         return resultSet
 
-
-
-
-    def operations(self,first,second,operation):
+    def operations(self, first, second, operation):
         if operation == 'AND':
-            self.result = self.intersection(first,second)
+            self.result = self.intersection(first, second)
         elif operation == 'OR':
-            self.result = self.union(first,second)
+            self.result = self.union(first, second)
         else:
-            self.result = self.complement(first,second)
+            self.result = self.complement(first, second)

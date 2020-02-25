@@ -1,7 +1,6 @@
 import sys
 
 
-
 class Graph:
     def __init__(self):
         self.vertices = {}
@@ -34,80 +33,43 @@ class Graph:
 
     def __iter__(self):
         return iter(self.vertices.values())
-    def insert(self,a,niz):
-        for i in range (0 , len(niz)):
-            self.addEdge(a,niz[i])
 
-  # sumiranje svih stranica koje pokazuju na datu stanicu i ka kojima ona pokazuje
+    def insert(self, a, niz):
+        for i in range(0, len(niz)):
+            self.addEdge(a, niz[i])
+
+    # sumiranje svih stranica koje pokazuju na datu stanicu i ka kojima ona pokazuje
 
     def sumOfConnectingLinks(self, link):
-        sum = 0
+        sumConnection = 0
         list = []
         for m in self.vertices:
             for i in self.getVertex(m).connectedTo:
                 if i == self.vertices[link]:
-                    sum = sum + 1
+                    sumConnection = sumConnection + 1
                     list.append(m)
                     # mozda treba break pogledati posle za optimizaciju
-        return sum, len(self.vertices[link].connectedTo), list
-
+        return sumConnection, len(self.vertices[link].connectedTo), list
 
     def sumOfWords(self, dictionary, list):
-        sum = 0  # broj svih reci u svim mapama
+        sumWords = 0  # broj svih reci u svim mapama
         for i in list:
             if i in dictionary:
                 sumOfDictionary = 0
-                for m in dictionary[i]:  # prolazimo kroz vrdnosti mape a to je niz od dva broja i saberemo ih,npr [1,3] = 4
+                for m in dictionary[
+                    i]:  # prolazimo kroz vrdnosti mape a to je niz od dva broja i saberemo ih,npr [1,3] = 4
                     sumOfDictionary = sumOfDictionary + m
-                sum = sum + sumOfDictionary
-        return sum
+                sumWords = sumWords + sumOfDictionary
+        return sumWords
 
 
 class Vertex:
     def __init__(self, num):
         self.id = num
         self.connectedTo = {}
-        self.color = 'white'
-        self.dist = sys.maxsize
-        self.pred = None
-        self.disc = 0
-        self.fin = 0
 
     def addNeighbor(self, nbr, weight=0):
         self.connectedTo[nbr] = weight
 
-    def setColor(self, color):
-        self.color = color
-
-    def setDistance(self, d):
-        self.dist = d
-
-    def setPred(self, p):
-        self.pred = p
-
-    def setDiscovery(self, dtime):
-        self.disc = dtime
-
-    def setFinish(self, ftime):
-        self.fin = ftime
-
-    def getFinish(self):
-        return self.fin
-
-    def getDiscovery(self):
-        return self.disc
-
-    def getPred(self):
-        return self.pred
-
-    def getDistance(self):
-        return self.dist
-
-    def getColor(self):
-        return self.color
-
     def getConnections(self):
         return self.connectedTo.keys()
-
-    def getWeight(self, nbr):
-        return self.connectedTo[nbr]
