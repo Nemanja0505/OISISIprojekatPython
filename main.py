@@ -19,6 +19,10 @@ startInputs = 0
 endInputs = 0
 
 def inputDirectory(pathDirectory):
+    if pathDirectory == '':
+        print('\nNISTE UNELI DIREKTORIJUM')
+        return pathDirectory
+
     if not os.path.isdir(pathDirectory):
         print('\nUNELI STE NEPOSTOJECI DIREKTORIJUM')
         pathDirectory = ''
@@ -70,12 +74,12 @@ if __name__ == '__main__':
   pathDirectory = ''
 
   while running:
-      print('\t'*7,'---'*10,'MENI','---'*10)
-      print('\t'*12,'1.Izbor direktorijuma')
-      print('\t'*12,'2.Pretraga')
-      print('\t'*12,'3.Napredna pretraga')
-      print('\t'*12,'X.Izlaz iz programa')
-      print('\t'*9,'NAPOMENA : neophodno je prvo izabrati direktorijum\n','\t'*9,'za pravilno izvrsavanje ostalih funkcionalnosti\n','\t'*7,'-'*65)
+      print(' '*20,'---'*10,'MENI','---'*10)
+      print(' '*40,'1.Izbor direktorijuma')
+      print(' '*40,'2.Pretraga')
+      print(' '*40,'3.Napredna pretraga')
+      print(' '*40,'X.Izlaz iz programa')
+      print(' '*30,'NAPOMENA : neophodno je prvo izabrati direktorijum\n',' '*29,'za pravilno izvrsavanje ostalih funkcionalnosti\n',' '*20,'-'*65)
       unos = input('Odabir operacije:').strip()
 
       if unos == '1':
@@ -88,28 +92,30 @@ if __name__ == '__main__':
         if pathDirectory == '':
             print('\nNiste izabrali putanju direktorijuma [procitajte napomenu]\n')
         else:
-            print('\t' * 12, 'UPUTSVO KORISCENJA PRETRAGE\n', '\t' * 9, '* Moguce je pretraziti jednu/vise reci\n','\t' * 9, '* Moguca je logicka pretraga u formatu [rec AND|OR|NOT rec]\n', '\t' * 9,'* Reci and|or|not smatraju se logickim operatorima i nije ih moguce pretraziti\n')
+            print(' ' * 40, 'UPUTSVO KORISCENJA PRETRAGE\n', ' ' * 30, '* Moguce je pretraziti jednu/vise reci\n',' ' * 30, '* Moguca je logicka pretraga u formatu [rec AND|OR|NOT rec]\n', ' ' * 30,'* Reci and|or|not smatraju se logickim operatorima i nije ih moguce pretraziti\n')
             string = input('Unesite jednu ili vise reci:')
             findWords(string)
-            print()
       elif unos == '3':
-            print('\t\tUpustvo koriscenja napredne pretrage\n')
-            string = input('Unesite logicki izraz koji zelite da pretrazite : ')
-            arrayOfWords,valid = parseComplexInput(string)
-            if not valid:
-                print('Neispravan unos pretrage')
+            if pathDirectory == '':
+                print('\nNiste izabrali putanju direktorijuma [procitajte napomenu]\n')
             else:
-                postfixArray = InfixToPostfix(arrayOfWords)
-                print(postfixArray)
-                t = constructTree(postfixArray)
-                inorder(t)
-                htmlPages = evaluateExpressionTree(t, trie, allFiles)
-
-                if len(htmlPages) != 0:
-                    htmlPages = complexRanking(htmlPages,graph)
-                    showSortPages(htmlPages)
+                print(' ' * 40, 'UPUTSVO KORISCENJA NAPREDNE PRETRAGE\n',)
+                string = input('Unesite logicki izraz koji zelite da pretrazite : ')
+                arrayOfWords,valid = parseComplexInput(string)
+                if not valid:
+                    print('Neispravan unos pretrage')
                 else:
-                 print('Skup trazenih reci nije pronadjen')
+                    postfixArray = InfixToPostfix(arrayOfWords)
+                    print(postfixArray)
+                    t = constructTree(postfixArray)
+                    inorder(t)
+                    htmlPages = evaluateExpressionTree(t, trie, allFiles)
+
+                    if len(htmlPages) != 0:
+                        htmlPages = complexRanking(htmlPages,graph)
+                        showSortPages(htmlPages)
+                    else:
+                     print('Skup trazenih reci nije pronadjen')
 
       else:
           if unos.upper() == 'X':
