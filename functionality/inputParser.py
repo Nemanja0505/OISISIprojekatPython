@@ -52,7 +52,7 @@ def parseComplexInput(string):
     string = string.replace('\t', ' ')
 
     if len(string) == 0:
-        print('GRESKA\n*Niste uneli nijednu rec')
+        print('GRESKA! *Niste uneli nijednu rec')
         return [], False
 
     arrayOfWords = []
@@ -154,8 +154,8 @@ def parseComplexInput(string):
                 resultArray.append('||')
         elif arrayOfWords[i] == ')' and (arrayOfWords[i + 1] not in ['&&', '||', ')']):
             resultArray.append('||')
-        elif arrayOfWords[i] == '(' and (arrayOfWords[i + 1] in ['&&', '||']):
-            print('GRESKA! *Posle otvorene zagrade nije moguce uneti operatore && i ||')
+        elif arrayOfWords[i] == '(' and (arrayOfWords[i + 1] in ['&&', '||',')']):
+            print('GRESKA! *Posle otvorene zagrade nije moguce uneti operatore && i || niti zatvorenu zagradu')
             valid = False
 
     resultArray.append(arrayOfWords[len(arrayOfWords) - 1])

@@ -17,9 +17,9 @@ def evaluateExpressionTree(root, tree, allFiles):
         for key in left_leaf:
             if key in right_leaf:
                 if root.left.value != root.right.value:
-                        resultSet[key] = right_leaf[key] + left_leaf[key]
+                    resultSet[key] = right_leaf[key] + left_leaf[key]
                 else:
-                        resultSet[key] = right_leaf[key]
+                    resultSet[key] = right_leaf[key]
         return resultSet
 
     elif root.value == '||':
@@ -28,15 +28,15 @@ def evaluateExpressionTree(root, tree, allFiles):
 
             if key in right_leaf:
                 if root.left.value != root.right.value:
-                        resultSet[key] = right_leaf[key] + left_leaf[key]
+                    resultSet[key] = right_leaf[key] + left_leaf[key]
                 else:
-                        resultSet[key] = right_leaf[key]
+                    resultSet[key] = right_leaf[key]
             else:
-                    resultSet[key] = left_leaf[key]
+                resultSet[key] = left_leaf[key]
 
         for key in right_leaf:
             if key not in resultSet:
-                  resultSet[key] = right_leaf[key]
+                resultSet[key] = right_leaf[key]
 
         return resultSet
 

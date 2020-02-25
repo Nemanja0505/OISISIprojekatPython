@@ -99,7 +99,7 @@ if __name__ == '__main__':
             if pathDirectory == '':
                 print('\nNiste izabrali putanju direktorijuma [procitajte napomenu]\n')
             else:
-                print(' ' * 40, 'UPUTSVO KORISCENJA NAPREDNE PRETRAGE\n',)
+                print(' ' * 40, 'UPUTSVO KORISCENJA NAPREDNE PRETRAGE\n',' '*30,'*Moguce je koriscenje operatora [&&,||,!]\n',' '*30,'*Napredna pretraga podrzava slozenije upite',' '*30,'*Primer: !(python java || program) && clojure\n')
                 string = input('Unesite logicki izraz koji zelite da pretrazite : ')
                 arrayOfWords,valid = parseComplexInput(string)
                 if not valid:
