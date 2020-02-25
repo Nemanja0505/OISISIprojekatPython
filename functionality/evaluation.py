@@ -16,48 +16,27 @@ def evaluateExpressionTree(root, tree, allFiles):
         resultSet = {}
         for key in left_leaf:
             if key in right_leaf:
-                if isinstance(right_leaf[key], list) and isinstance(left_leaf[key], list):
-                    resultSet[key] = right_leaf[key][0] + left_leaf[key][0]
-                elif isinstance(right_leaf[key], list):
-                    resultSet[key] = right_leaf[key][0] + left_leaf[key]
-                elif isinstance(left_leaf[key], list):
-                    resultSet[key] = right_leaf[key] + left_leaf[key][0]
-                else:
-
-                    if root.left.value != root.right.value:
-
+                if root.left.value != root.right.value:
                         resultSet[key] = right_leaf[key] + left_leaf[key]
-                    else:
+                else:
                         resultSet[key] = right_leaf[key]
         return resultSet
 
     elif root.value == '||':
         resultSet = {}
         for key in left_leaf:
+
             if key in right_leaf:
-                if isinstance(right_leaf[key], list) and isinstance(left_leaf[key], list):
-                    resultSet[key] = right_leaf[key][0] + left_leaf[key][0]
-                elif isinstance(right_leaf[key], list):
-                    resultSet[key] = right_leaf[key][0] + left_leaf[key]
-                elif isinstance(left_leaf[key], list):
-                    resultSet[key] = right_leaf[key] + left_leaf[key][0]
-                else:
-                    if root.left.value != root.right.value:
+                if root.left.value != root.right.value:
                         resultSet[key] = right_leaf[key] + left_leaf[key]
-                    else:
+                else:
                         resultSet[key] = right_leaf[key]
             else:
-                if isinstance(left_leaf[key], list):
-                    resultSet[key] = left_leaf[key][0]
-                else:
                     resultSet[key] = left_leaf[key]
 
         for key in right_leaf:
             if key not in resultSet:
-                if isinstance(right_leaf[key], list):
-                    resultSet[key] = right_leaf[key][0]
-                else:
-                    resultSet[key] = right_leaf[key]
+                  resultSet[key] = right_leaf[key]
 
         return resultSet
 
