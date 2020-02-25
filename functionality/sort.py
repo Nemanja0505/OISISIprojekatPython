@@ -23,7 +23,7 @@ def showSortPages(htmlPages):
         print('3.promeni broj prikaza stanica : ')
         print('X.izlazak iz pretrage ')
 
-        option = input()
+        option = input().strip()
 
         if option == '1':
             if start + step == len(sortList):
@@ -61,19 +61,26 @@ def showSortPages(htmlPages):
                     showStepByStep(sortList, start, step,htmlPages)
                     print('\t'*10,'<---PRETHODNA\t|\tSLEDECA--->')
         elif option == '3':
-            step = int(input('Unesite zeljeni korak'))
-            start = 0
-            if step > len(sortList):
-                showStepByStep(sortList, 0, len(sortList),htmlPages)
-                step = len(sortList)
-                print('Uneli ste prevelik korak ukupan broj stranica je', len(sortList))
-            else:
-                showStepByStep(sortList, start, step,htmlPages)
-                print('\t'*10,'SLEDECA--->')
-            defaultStep = step
+            valid = True
+            try:
+                step = int(input('Unesite zeljeni korak'))
+            except:
+                print('MORATE UNETI BROJ \n')
+                valid = False
+            if valid:
+                start = 0
+                if step > len(sortList):
+                    showStepByStep(sortList, 0, len(sortList),htmlPages)
+                    step = len(sortList)
+                    print('Uneli ste prevelik korak ukupan broj stranica je', len(sortList))
+                else:
+                    showStepByStep(sortList, start, step,htmlPages)
+                    print('\t'*10,'SLEDECA--->')
+                defaultStep = step
 
         else:
-            running2 = False
+            if option.upper() == 'X':
+                 running2 = False
 
 
 def showStepByStep(sortList,start,step,htmlPages):

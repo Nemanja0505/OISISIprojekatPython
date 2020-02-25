@@ -6,7 +6,11 @@ def ranking(htmlPages,korak):
 
         #if previous != value:
             #i = korak + i
-            rankDicitonary[key] = htmlPages[key]*korak
+
+         if isinstance(htmlPages[key],list):
+            rankDicitonary[key] = htmlPages[key][0]*korak
+         else:
+             rankDicitonary[key] = htmlPages[key] * korak
             #previous = value
         #else:
            # rankDicitonary[key] = 1
@@ -48,7 +52,7 @@ def rankDictionary(htmlPages,arrayOfDictionary,graph):
             else:
                 dictionary1[key] = arrayOfDictionary[i][key]
     print('RANGIRANJE DRUGE KOLONE')
-    dictionary2 = ranking(dictionaryOfLinks,0.2)  # rangirana mapa  za Linkove (svakoj se daje + 0.2)
+    dictionary2 = ranking(dictionaryOfLinks,0.3)  # rangirana mapa  za Linkove (svakoj se daje + 0.2)
     print('RANGIRANJE POSLEDNJE KOLONE')
     dictionary3 = ranking(dictionaryOfWordsInLinks,0.1) # rangirana mapa za ReciULinkovima (svakoj se daje +0.1)
 
@@ -76,4 +80,21 @@ def logicalRanking(htmlPages,array,trie,graph):
     htmlPages = rankDictionary(htmlPages,arrayOfDictionary,graph)
 
     return htmlPages
+
+def complexRanking(htmlPages,graph):
+    resultHtmlPages = {}
+
+    for key in htmlPages:
+        array = []
+        array.append(htmlPages[key])
+        resultHtmlPages[key] = array
+
+    arrayOfDictionary = []
+    mapaRangiranja1 = ranking(resultHtmlPages, 0.5)
+    arrayOfDictionary.append(mapaRangiranja1)
+
+    resultHtmlPages = rankDictionary(resultHtmlPages,arrayOfDictionary,graph)
+
+    return resultHtmlPages
+
 
