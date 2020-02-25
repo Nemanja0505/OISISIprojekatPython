@@ -5,9 +5,10 @@ from dataStructures.graph import *
 from dataStructures.set import *
 from functionality.inputParser import *
 from functionality.resultSetOfPages import *
-from functionality.sort import  *
+from functionality.sort import *
 from functionality.infixToPostfix import *
 from functionality.binaryTree import *
+from functionality.evaluation import *
 import time
 
 
@@ -15,6 +16,7 @@ parser = Parser()
 trie = Trie()
 graph = Graph()
 set = Set()
+allFiles = []
 
 def inputDirectory(pathDirectory):
     if not os.path.isdir(pathDirectory):
@@ -29,6 +31,7 @@ def inputDirectory(pathDirectory):
          for file in files:
             if file.endswith('html') or file.endswith('htm'):
                 absPath = os.path.join(root,file)
+                allFiles.append(absPath)
                 links, words = parser.parse(absPath)
                 graph.insert(absPath, links)
                 for word in words:
@@ -100,9 +103,18 @@ if __name__ == '__main__':
                 print(postfixArray)
                 t = constructTree(postfixArray)
                 inorder(t)
+                htmlPages = evaluateExpressionTree(t, trie, allFiles)
+
+                if len(htmlPages) != 0:
+                    htmlPages = complexRanking(htmlPages,graph)
+                    showSortPages(htmlPages)
+                else:
+                 print('Skup trazenih reci nije pronadjen')
+
       else:
           if unos.upper() == 'X':
             running = False
 
   if pathDirectory != '':
     print('Vreme ubacivanja reci i linkova u trie i graph :',endInputs - startInputs)
+
