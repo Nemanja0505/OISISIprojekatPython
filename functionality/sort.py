@@ -18,12 +18,12 @@ def showSortPages(htmlPages):
     print(' ' * 54, start + step, '/', len(sortList))
 
     while running2:
-        print('1.Prikazi sledecu stranicu : ')
-        print('2.Prikazi predhodnu stranicu : ')
-        print('3.Promeni broj prikaza stanica : ')
+        print('1.Prikazi sledecu stranicu: ')
+        print('2.Prikazi predhodnu stranicu: ')
+        print('3.Promeni broj prikaza stanica: ')
         print('X.Izlaz iz pretrage: ')
 
-        option = input().strip()
+        option = input('\nOdabir operacije:').strip()
 
         if option == '1':
             if start + step == len(sortList):
