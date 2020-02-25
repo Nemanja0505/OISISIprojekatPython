@@ -23,7 +23,12 @@ def evaluateExpressionTree(root, tree, allFiles):
                 elif isinstance(left_leaf[key], list):
                     resultSet[key] = right_leaf[key] + left_leaf[key][0]
                 else:
-                    resultSet[key] = right_leaf[key] + left_leaf[key]
+
+                    if root.left.value != root.right.value:
+
+                        resultSet[key] = right_leaf[key] + left_leaf[key]
+                    else:
+                        resultSet[key] = right_leaf[key]
         return resultSet
 
     elif root.value == '||':
@@ -37,7 +42,10 @@ def evaluateExpressionTree(root, tree, allFiles):
                 elif isinstance(left_leaf[key], list):
                     resultSet[key] = right_leaf[key] + left_leaf[key][0]
                 else:
-                    resultSet[key] = right_leaf[key] + left_leaf[key]
+                    if root.left.value != root.right.value:
+                        resultSet[key] = right_leaf[key] + left_leaf[key]
+                    else:
+                        resultSet[key] = right_leaf[key]
             else:
                 if isinstance(left_leaf[key], list):
                     resultSet[key] = left_leaf[key][0]
