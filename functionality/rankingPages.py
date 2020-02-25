@@ -1,5 +1,4 @@
 def ranking(htmlPages, step):
-
     rankingDictionary = {}
 
     for key in htmlPages:
@@ -23,7 +22,6 @@ def rankDictionary(htmlPages, arrayOfDictionary, graph):
         dictionaryOfLinks[key] = linksNumber1
         dictionaryOfWordsInLinks[key] = wordsNumberInPage  # mapa straniceKojeSdrzeLink-->brojTrazeneReciNaTojStranici
 
-
     dictionary1 = {}  # rangirana mapa za broj reci u Linku (spajanje prethodono dobijenih mapa koje se nalaze u nizu
     # arrayOfDictionary)
     for i in range(len(arrayOfDictionary)):
@@ -32,9 +30,9 @@ def rankDictionary(htmlPages, arrayOfDictionary, graph):
                 dictionary1[key] = dictionary1[key] + arrayOfDictionary[i][key]
             else:
                 dictionary1[key] = arrayOfDictionary[i][key]
-#   print('RANGIRANJE DRUGE KOLONE')
+    #   print('RANGIRANJE DRUGE KOLONE')
     dictionary2 = ranking(dictionaryOfLinks, 0.3)
-#    print('RANGIRANJE POSLEDNJE KOLONE')
+    #    print('RANGIRANJE POSLEDNJE KOLONE')
     dictionary3 = ranking(dictionaryOfWordsInLinks, 0.1)
 
     rankingDictionary = {}  # recnik sa uracunatim svim kriterijumima rangiranja
@@ -58,7 +56,7 @@ def logicalRanking(htmlPages, array, trie, graph):
         existingWord2, htmlPages2 = trie.search(array[2])
         arrayOfDictionary.append(ranking(htmlPages2, 0.5))
 
-#kada imamo dve iste reci npr java and java tada treba samo da se ispise kao da imamo samo jednu javu
+        # kada imamo dve iste reci npr java and java tada treba samo da se ispise kao da imamo samo jednu javu
         if array[0].upper() == array[2].upper():
             htmlPages.clear()
             for key in htmlPages2:

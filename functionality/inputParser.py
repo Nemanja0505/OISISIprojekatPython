@@ -154,7 +154,7 @@ def parseComplexInput(string):
                 resultArray.append('||')
         elif arrayOfWords[i] == ')' and (arrayOfWords[i + 1] not in ['&&', '||', ')']):
             resultArray.append('||')
-        elif arrayOfWords[i] == '(' and (arrayOfWords[i + 1] in ['&&', '||',')']):
+        elif arrayOfWords[i] == '(' and (arrayOfWords[i + 1] in ['&&', '||', ')']):
             print('GRESKA! *Posle otvorene zagrade nije moguce uneti operatore && i || niti zatvorenu zagradu')
             valid = False
 

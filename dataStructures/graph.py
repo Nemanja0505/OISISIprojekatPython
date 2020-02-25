@@ -56,8 +56,8 @@ class Graph:
         for i in list:
             if i in dictionary:
                 sumOfDictionary = 0
-                for m in dictionary[
-                    i]:  # prolazimo kroz vrdnosti mape a to je niz od dva broja i saberemo ih,npr [1,3] = 4
+                # prolazimo kroz vrdnosti mape a to je niz od dva broja i saberemo ih,npr [1,3] = 4
+                for m in dictionary[i]:
                     sumOfDictionary = sumOfDictionary + m
                 sumWords = sumWords + sumOfDictionary
         return sumWords

@@ -6,7 +6,8 @@ class TrieNode():
     def __init__(self):
         self.children = dict()
         self.terminating = False
-        self.dictionary = {}  # recnik za cuvanje skupa stranica (kljuc je link stranice,a vrednost broj pojavljivanja reci u linku)
+        self.dictionary = {}  # recnik za cuvanje skupa stranica (kljuc je link stranice,a vrednost broj
+        # pojavljivanja reci u linku)
 
 
 class Trie():
@@ -40,9 +41,9 @@ class Trie():
         else:
             root.dictionary[page] += 1
 
-    # pretraga reci unutar trie stabla
-    # povratna vrednost pretrge je True ili False (u zavisnosti da li trazena rec postoji) i recnik koji sadrzi html stranice u kojima se data rec pojavljuje
-    # kao i broj pojavljivanja zadate reci za svaku html stranicu
+    # pretraga reci unutar trie stabla povratna vrednost pretrge je True ili False (u zavisnosti da li trazena rec
+    # postoji) i recnik koji sadrzi html stranice u kojima se data rec pojavljuje kao i broj pojavljivanja zadate
+    # reci za svaku html stranicu
     def search(self, word):
         root = self.root
         len1 = len(word)
