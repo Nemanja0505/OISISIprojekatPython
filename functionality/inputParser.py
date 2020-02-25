@@ -159,7 +159,5 @@ def parseComplexInput(string):
             valid = False
 
     resultArray.append(arrayOfWords[len(arrayOfWords) - 1])
-    print('Niz koji se prosledjuje')
-    print(resultArray)
 
     return resultArray, valid

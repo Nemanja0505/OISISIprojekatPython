@@ -22,7 +22,7 @@ def rankDictionary(htmlPages, arrayOfDictionary, graph):
         wordsNumberInPage = graph.sumOfWords(htmlPages, pointingPages)  # broj reci u stranici koja sadrzi link
         dictionaryOfLinks[key] = linksNumber1
         dictionaryOfWordsInLinks[key] = wordsNumberInPage  # mapa straniceKojeSdrzeLink-->brojTrazeneReciNaTojStranici
-        print(key, '------>', wordsNumber, '  ', linksNumber1, ' ', linksNumber2, '  ', wordsNumberInPage)
+
 
     dictionary1 = {}  # rangirana mapa za broj reci u Linku (spajanje prethodono dobijenih mapa koje se nalaze u nizu
     # arrayOfDictionary)
